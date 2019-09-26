@@ -21,7 +21,7 @@ void secureWord::encryptWord(char input[100], int inputKey, bool flag)
 	if (!flag)
 	{
 		// Encrypt & store
-		for (char i = 0; i < size; i++)
+		for (int i = 0; i < size; i++)
 		{
 			word[i] = (((input[i] - 97) + inputKey) % 26) + 97;
 		}
@@ -29,7 +29,7 @@ void secureWord::encryptWord(char input[100], int inputKey, bool flag)
 	else
 	{
 		// Just store
-		for (char i = 0; i < size; i++)
+		for (int i = 0; i < size; i++)
 		{
 			word[i] = input[i];
 		}
@@ -46,20 +46,20 @@ void secureWord::encryptWord(char input[100], int inputKey, bool flag)
 bool secureWord::compare(char data[100])
 {
 	// Quick test
-	if (strlen(data) != size) return false;
+	if (strlen(data) != (unsigned int)size) return false;
 
 	// Temp variable buffer
 	char encryptedData[100];
 
 	// Encrypt data
-	for (char i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		encryptedData[i] = (((data[i] - 97) + key) % 26) + 97;
 	}
 	encryptedData[size] = '\0';
 
 	// compare encrypted data with encrypted word
-	for (char i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		// If one letter is different test fails!
 		if (encryptedData[i] != word[i]) return false;

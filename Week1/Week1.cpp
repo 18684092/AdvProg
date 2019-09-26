@@ -1,5 +1,11 @@
-// Week1.cpp :
-//
+/*
+Author: Andy Perrett (18684092)
+Assignment: Week 1 workshop
+
+Note that the function assignments / class definition secureWord.h
+was given and couldn't be altered
+
+*/
 
 #include "string.h"
 #include <iostream>
