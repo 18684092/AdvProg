@@ -5,6 +5,8 @@ Assignment: Week 1 workshop
 Note that the function assignments / class definition secureWord.h
 was given and couldn't be altered
 
+c++14
+
 */
 
 #include "string.h"
@@ -29,14 +31,16 @@ int main()
 	// Create array of secureWord
 	//
 	// NOTE ideally the default constructor should initialise the variables within the object
-	// without this a warning is produced of "using uninitialized memory 'secureList'
+	// without this a warning is produced of "using uninitialized memory 'secureList'"
 	secureWord secureList[8];
 
-	// Initialise memory used by secureWord
+	// Initialise memory used by secureWord C++14 complains if we don't
+	/*
 	for (size_t i = 0; i < 8; i++)
 	{
 		secureList[i].word[0] =  '\0';
 	}
+	*/
 
 	char word[100];
 	bool flag;
