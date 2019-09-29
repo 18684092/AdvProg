@@ -30,17 +30,7 @@ int main()
 {
 	// Create array of secureWord
 	//
-	// NOTE ideally the default constructor should initialise the variables within the object
-	// without this a warning is produced of "using uninitialized memory 'secureList'"
 	secureWord secureList[8];
-
-	// Initialise memory used by secureWord C++14 complains if we don't
-	/*
-	for (size_t i = 0; i < 8; i++)
-	{
-		secureList[i].word[0] =  '\0';
-	}
-	*/
 
 	char word[100];
 	bool flag;
@@ -51,6 +41,7 @@ int main()
 	if (infile.is_open())
 	{
 		int count = 0;
+
 		// multiple white spaces are treated as one
 		// Let's presume file is in correct form BUT it should be checked for
 		// validity in an ideal world !!!!
