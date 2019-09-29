@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1569706736 source:/home/andy/c++/ProjectEuler/Problem-75/main.cpp
+	<iostream>
+	<cmath>
+	<algorithm>
+
