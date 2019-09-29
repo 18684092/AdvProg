@@ -101,7 +101,7 @@ int main()
 			std::cout << "That is NOT a secure word!" << std::endl << std::endl;
 		}
 	}
-
+    // zero represents OK
 	return 0;
 }
 
