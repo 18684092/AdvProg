@@ -1,0 +1,279 @@
+##############
+# Problem 82 #
+##############
+
+# Standard imports
+import math
+
+# Global variables
+INFINITY = math.inf
+
+# Node structure
+class ASTARNode():
+  localGoal = INFINITY
+  globalGoal = INFINITY
+  parent = (-1, -1)
+  visited = False
+  x = 0
+  y = 0
+  neighbours = []
+  cost = 0
+
+#################################
+# Functions specific to problem #
+#################################
+def costToEnd3(grid, start, end):
+  # Cost from left to right
+  cost = 0
+  (startY, startX) = start
+  (endY, endX) = end
+  if startY > endY:
+    #swap
+    temp = startY
+    startY = endY
+    endY = temp
+  # Now pythagarous
+  x = 0
+  xSum = 0
+  while startX + x < endX + 1:
+    xSum += grid[startY][startX + x]
+    x += 1
+  #y = 0
+  #ySum = 0
+  #while startY + y < endY:
+  #  ySum += grid[startY + y][startX]
+  #  y += 1
+  cost = xSum
+  return(cost)
+
+def costToEnd2(grid, start, end):
+  # Cost from left to right
+  cost = 0
+  (startY, startX) = start
+  (endY, endX) = end
+  if startY > endY:
+    #swap
+    temp = startY
+    startY = endY
+    endY = temp
+  # Now pythagarous
+  x = 0
+  xSum = 0
+  while startX + x < endX + 1:
+    xSum += grid[startY][startX + x]
+    x += 1
+  y = 0
+  ySum = 0
+  while startY + y < endY:
+    ySum += grid[startY + y][startX]
+    y += 1
+  cost = ySum + xSum
+  return(cost)
+
+def costToEnd(grid, start, end):
+  # Cost from left to right
+  cost = 0
+  (startY, startX) = start
+  (endY, endX) = end
+  if startY > endY:
+    #swap
+    temp = startY
+    startY = endY
+    endY = temp
+  # Now pythagarous
+  x = 0
+  xSum = 0
+  while startX + x < endX + 1:
+    xSum += grid[startY][startX + x]
+    x += 1
+  y = 0
+  y = 0
+  ySum = 0
+  while startY + y < endY:
+    ySum += grid[startY + y][startX]
+    y += 1
+  cost = math.sqrt((ySum * ySum) + (xSum * xSum))
+  return(cost)
+
+def getNeighbours(grid, row, col):
+  neighbours = []
+  if row > 0:
+    neighbours.append((row - 1, col)) # up
+  if row < len(grid) - 1:
+    neighbours.append((row + 1, col)) # down
+  if col < len(grid[row]) - 1:
+    neighbours.append((row, col + 1)) # right
+  return(neighbours)
+
+def sortNodesByGlobalGoal(grid, neighbourList):
+  change = True
+  while change:
+    change = False
+    for i in range(len(neighbourList) - 1):
+      (nY1, nX1) = neighbourList[i]
+      (nY2, nX2) = neighbourList[i + 1]
+      if grid[nY1][nX1].globalGoal > grid[nY2][nX2].globalGoal:
+        # swap
+        change = True
+        temp = neighbourList[i]
+        neighbourList[i] = neighbourList[i + 1]
+        neighbourList[i + 1] = temp
+  return(neighbourList)
+
+def sortNodesByCost(grid, neighbourList):
+  change = True
+  while change:
+    change = False
+    for i in range(len(neighbourList) - 1):
+      (nY1, nX1) = neighbourList[i]
+      (nY2, nX2) = neighbourList[i + 1]
+      if grid[nY1][nX1].cost > grid[nY2][nX2].cost:
+        # swap
+        change = True
+        temp = neighbourList[i]
+        neighbourList[i] = neighbourList[i + 1]
+        neighbourList[i + 1] = temp
+  return(neighbourList)
+
+def sortNodesByLocal(grid, neighbourList):
+  change = True
+  while change:
+    change = False
+    for i in range(len(neighbourList) - 1):
+      (nY1, nX1) = neighbourList[i]
+      (nY2, nX2) = neighbourList[i + 1]
+      if grid[nY1][nX1].localGoal > grid[nY2][nX2].localGoal:
+        # swap
+        change = True
+        temp = neighbourList[i]
+        neighbourList[i] = neighbourList[i + 1]
+        neighbourList[i + 1] = temp
+  return(neighbourList)
+    
+def showNodes(grid, nodes):
+  for row in range(len(grid)):
+    for col in range(len(grid[0])):
+      if (row, col) in nodes:
+        if grid[row][col].visited:
+          print("1"," ", end="")
+        else:
+          print("0"," ", end="")
+      else:
+        print("-"," ", end="")
+    print()
+  print()
+    
+def checkPath(grid, y, x, start):
+  # Track back path to find route and cost
+  pathSum = grid[y][x].cost
+  while grid[y][x].parent != start:
+    (y, x) = grid[y][x].parent
+    pathSum += grid[y][x].cost
+  pathSum += grid[start[0]][start[1]].cost
+  return(pathSum)
+################
+# Here were go #
+################
+
+lowest = INFINITY
+gridF = []
+grid = []
+# populate grid with ints from string file
+with open("p082_matrix.txt", "r") as f:
+  for lines in f:
+    gridF.append([int(i) for i in lines.split(',')])
+f.close()
+
+    
+#############################################
+# Two test grids - uncomment either and run #
+# to test. Uncomment both to work on file   #
+#############################################
+
+# Shortest path cost here is 994
+# path = (1, 0), (1, 1), (1, 2), (0, 2), (0, 3), (0, 4)
+
+#gridF = []
+#gridF.append([131,673,234,103,18])
+#gridF.append([201,96,342,965,150])
+#gridF.append([630,803,746,422,111])
+#gridF.append([537,699,497,121,956])
+#gridF.append([805,732,524,37,331])
+
+# Shortest path cost here is 95
+# (0, 0), (0, 1), (1, 1), (2, 1), (3, 1), (3, 2), (3, 3), (2, 3), (1, 3), (0, 3), (0, 4)
+#gridF = []
+#gridF.append([21,10,61,2,10])
+#gridF.append([42, 8,51,7,35])
+#gridF.append([63,11,45,9,38])
+#gridF.append([81, 5,11,1,22])
+#gridF.append([99,10,2,10,90])
+routes = []
+lowestRoute = math.inf
+# Initialise our working grid
+for st in range(len(gridF)):
+  for e in range(len(gridF)):
+    grid = [[0 for i in range(len(gridF))] for j in range(len(gridF[0]))]
+    for row in range(len(gridF)):
+      for col in range(len(gridF[0])):
+        node = ASTARNode()
+        grid[row][col] = node
+        grid[row][col].cost = gridF[row][col]
+        grid[row][col].y = row
+        grid[row][col].x = col
+        # Calculate heuristic
+        grid[row][col].globalGoal = costToEnd3(gridF, (row, col), (e, len(gridF[0]) - 1))
+        grid[row][col].neighbours = getNeighbours(gridF, row, col)
+    
+
+    start = (st,0)
+    end = (e , len(gridF[0]) - 1)
+    print(start, end)
+    # Start point
+    (y, x) = start
+    # Update the starting node's localGoal and set to zero
+    grid[y][x].localGoal = 0
+    nodes = []
+    visitedList = []
+    nodes.append(start)
+    pointer = 0
+    while (y, x) != end:
+      # get neighbours
+      for neighbour in grid[y][x].neighbours: # sortNodesByGlobalGoal(grid, grid[y][x].neighbours):
+        #nodes.append(neighbour)
+        (Y, X) = neighbour
+        localCost = grid[y][x].localGoal + grid[Y][X].cost
+        if localCost < grid[Y][X].localGoal:
+          grid[Y][X].localGoal = localCost
+          grid[Y][X].parent = (y, x)
+          grid[Y][X].globalGoal = grid[Y][X].globalGoal + grid[Y][X].localGoal
+          nodes.append(neighbour)
+      grid[y][x].visited = True
+      pointer += 1
+      #nodes.remove((y, x))
+      #for node in nodes:
+      # if grid[node[0]][node[1]].visited == True :
+      #    nodes.remove((node[0], node[1]))
+      (y, x) = nodes[pointer]
+      
+    # Track back path to find route and cost
+    pathSum = grid[y][x].cost
+    t = []
+    while grid[y][x].parent != start:
+      t.append((y, x))
+      (y, x) = grid[y][x].parent
+      pathSum += grid[y][x].cost
+    pathSum += grid[start[0]][start[1]].cost
+    t.append((y, x))
+    t.append(start)
+    # Do we have a lower cost route? 
+    if pathSum < lowestRoute:
+      lowestRoute = pathSum
+      routes = t
+      print("------------------>>>>>PathSUM",pathSum,)
+    #print("PathSUM",pathSum,)  
+print(lowestRoute, list(reversed(routes)))  #print()
+
+
+
+ 

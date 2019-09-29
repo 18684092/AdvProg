@@ -1,0 +1,40 @@
+grid = []
+# populate grid with ints from string file
+with open("p082_matrix.txt", "r") as f:
+  for lines in f:
+    grid.append([int(i) for i in lines.split(',')])
+f.close()
+grid = []
+grid.append([21,10,61,2,10])
+grid.append([42, 8,51,7,35])
+grid.append([63,11,45,9,38])
+grid.append([81, 5,11,1,22])
+grid.append([99,10,2,10,90])
+#grid = []
+#grid.append([131,673,234,103,18])
+#grid.append([201,96,342,965,150])
+#grid.append([630,803,746,422,111])
+#grid.append([537,699,497,121,956])
+#grid.append([805,732,524,37,331])
+# cost is last number in each col
+cost = []
+for i in range(len(grid)):
+  cost.append(grid[i][-1])
+
+print(cost)
+
+# for right hand side step back thru cols to 0
+for cols in range(len(grid[0]) - 2, -1, -1):
+  cost[0] += grid[0][cols]
+  print("[0]",cost[0])
+	
+  print("up")
+  for rows in range(1, len(grid)):
+    cost[rows] = min(cost[rows], cost[rows - 1]) + grid[rows][cols]
+    print(rows, cost[rows])
+  print("down")
+  for rows in range(len(grid[0]) - 2, -1, -1):
+    cost[rows] = min(cost[rows], cost[rows + 1] + grid[rows][cols])
+    print(rows, cost[rows])
+    
+print ("Minimum path ", min(cost))

@@ -1,0 +1,88 @@
+##############
+# Problem 82 #
+##############
+import math
+
+INFINITY = math.inf
+lowest = INFINITY
+grid = []
+# populate grid with ints from string file
+with open("p082_matrix.txt", "r") as f:
+  for lines in f:
+    grid.append([int(i) for i in lines.split(',')])
+f.close()
+routeSums = []
+grid = []
+grid.append([131,673,234,103,18])
+grid.append([201,96,342,965,150])
+grid.append([630,803,746,422,111])
+grid.append([537,699,497,121,956])
+grid.append([805,732,524,37,331])
+
+#grid = []
+#grid.append([21,10,61,2,10])
+#grid.append([42,8,51,7,35])
+#grid.append([63,11,45,9,38])
+#grid.append([81,5,11,1,22])
+#grid.append([99,10,2,10,90])
+
+lowestOfEachCols = []
+# Loop through columns in reverse finding
+# smallest grid value in each and storing
+# vector of that value
+for cols in reversed(range(1,len(grid[0]))):
+  lowest = INFINITY
+  vector = ()
+  
+  # Determine start and end search domain
+  # based upon previous vector
+  
+  # If this is the first iteration
+  if len(lowestOfEachCols) == 0:
+    start = 0
+    end = len(grid)
+  # Are we at top?
+  elif lowestOfEachCols[-1][0] == 0:
+    start = 0
+    end = 2
+  # Are we at bottom?
+  elif lowestOfEachCols[-1][0] == len(grid) - 1:
+    start = lowestOfEachCols[-1][0] - 1
+    end = len(grid)
+  # Otherwise range is above and below
+  else:
+    print("b")
+    start = lowestOfEachCols[-1][0] - 1
+    end = lowestOfEachCols[-1][0] + 2
+    
+  # Get lowest vector in each column
+  for rows in range(start, end):
+    # Is this value the lowest?
+    if grid[rows][cols] < lowest:
+      lowest = grid[rows][cols]
+      vector = (rows, cols)
+  # Add the lowest to list
+  lowestOfEachCols.append(vector)
+
+# Add the starting Column
+lowestOfEachCols.append((vector[0], cols - 1))
+
+# Reverse lowest column to get correct direction of travel
+lowestVectors = list(reversed(lowestOfEachCols))
+
+# Loop through each step between start and end 
+# filling in missing vectors
+
+
+
+# Get path total
+pathTotal = 0
+for vector in path:
+  pathTotal += grid[vector[0]][vector[1]]
+  
+print(path)
+print("Path Total", pathTotal)
+
+  
+
+  
