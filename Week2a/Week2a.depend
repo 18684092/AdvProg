@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1569912666 source:/home/andyp/Documents/codeblocks/Week2a/src/DocSummary.cpp
+	"DocSummary.h"
+
+1569911011 /home/andyp/Documents/codeblocks/Week2a/include/DocSummary.h
+	<string>
+	<vector>
+	"WordCountPair.h"
+
+1569911974 source:/home/andyp/Documents/codeblocks/Week2a/src/WordCountPair.cpp
+	"WordCountPair.h"
+
+1569911974 /home/andyp/Documents/codeblocks/Week2a/include/WordCountPair.h
+	<string>
+
+1569909069 source:/home/andyp/Documents/codeblocks/Week2a/main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	"DocSummary.h"
+

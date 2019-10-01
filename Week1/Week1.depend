@@ -11,3 +11,15 @@
 	<fstream>
 	"secureWord.h"
 
+1569925580 source:/home/andyp/c++/AdvProg/Week1/secureWord.cpp
+	"secureWord.h"
+	"string.h"
+
+1569925580 /home/andyp/c++/AdvProg/Week1/secureWord.h
+
+1569925580 source:/home/andyp/c++/AdvProg/Week1/Week1.cpp
+	"string.h"
+	<iostream>
+	<fstream>
+	"secureWord.h"
+

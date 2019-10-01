@@ -52,7 +52,7 @@ int main()
 			if (strlen(word) <= 100)
 			{
 				std::cout << "Original word: " << word << std::endl;
-				secureList[count++].encryptWord(word, key, flag);
+				secureList[count++].encryptWord(word, key, flag);;
 				displaySecureWord(secureList[count - 1]);
 			}
 		}
