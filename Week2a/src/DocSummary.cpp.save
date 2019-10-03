@@ -28,14 +28,14 @@ void DocSummary::printSummary()
     std::cout << "------------------" << (std::string (fileName.length(), '-' )) << std::endl;
     std::cout << "No of sentences : " << numberOfSentences << std::endl;
     std::cout << "No of words     : " << numberOfWords << std::endl;
-
+    
     for ( auto &wordPair : wordList )
     {
         int s = wordPair.getWord().length();
         std::cout << wordPair.getWord() << (std::string (10 - s, ' '));
         std::cout << wordPair.getCount("hh") << std::endl;
     }
-
+    
     std::cout << std::endl;
 }
 
@@ -48,7 +48,7 @@ void DocSummary::analyseDocument()
 {
     std::string str;
     std::ifstream myFile(fileName);
-
+    
     // get each word and add its details
     if (myFile.is_open())
     {
@@ -60,7 +60,7 @@ void DocSummary::analyseDocument()
         // This is here to get used to using exceptions. Without it the program
         // would operate (not crash) but main would return the wrong value!!!
         std::cout << "File: " << fileName << " missing." << std::endl;
-
+        
         // This gets caught in main() so that we can return properly
         throw std::exception();
     }
@@ -78,12 +78,12 @@ void DocSummary::removePunc(std::string &word)
     for(size_t i = 0; i < word.length(); ++i)
     {
         char c = word[i];
-
+        
         if (c == '.' || c == '?' || c == '!' || c == ',')
         {
             word.erase(i, 1);
         }
-
+        
     }
 }
 
@@ -96,13 +96,13 @@ void DocSummary::addWord(const std::string str)
     // 2 copies of the word, one with and one without punctuation
     std::string word = str;
     removePunc(word);
-
+    
     bool found = false;
-
+    
     // Check all words - we don't want a duplicate
     for(size_t i = 0; i < wordList.size(); ++i)
     {
-
+    
         // Have we seen this word before
         if (wordList[i].getWord() == word)
         {
@@ -110,19 +110,19 @@ void DocSummary::addWord(const std::string str)
             wordList[i].setCount(1);
             break;
         }
-
+        
     }
-
+    
     // Only add if necessary
-    if (!found)
+    if (!found) 
     {
         WordCountPair newWP(word, 1);
         wordList.push_back(newWP);
     }
-
+    
     // It is a sentence if there are punctuation chars contained
     if (word != str) increaseSentenceCount(str);
-
+    
     // There must be a word otherwise we wouldn't be here!
     ++numberOfWords;
 }
@@ -138,13 +138,13 @@ void DocSummary::increaseSentenceCount(const std::string word)
     for(size_t i = 0; i < word.length(); ++i)
     {
         char c = word[i];
-
+        
         if (c == '.' || c == '?' || c == '!')
         {
-            // pre increment better than post increment!
+            // pre increment better than post increme
             ++numberOfSentences;
             break;
         }
-
+        
     }
 }
