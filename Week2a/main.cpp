@@ -11,7 +11,7 @@ int main()
         doc1.printSummary();
         return EXIT_SUCCESS;
     }
-    catch (const std::exception& s)
+    catch (const std::exception&)
     {
         return EXIT_FAILURE;
     }
