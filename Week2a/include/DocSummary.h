@@ -3,7 +3,9 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 #include "WordCountPair.h"
+#include <algorithm>
 
 class DocSummary
 {
@@ -29,8 +31,10 @@ class DocSummary
         // object that keeps the word and its count.
         std::vector<WordCountPair> wordList;
 
-        void increaseSentenceCount(std::string);
-        void addWord(std::string);
+        void increaseSentenceCount(const std::string);
+        void addWord(const std::string);
+        void removePunc(std::string &);
+
 
 };
 

@@ -1,19 +1,17 @@
 #include "WordCountPair.h"
 
 // Defaults constructor. Sets word to null string and count to zero.
-WordCountPair::WordCountPair()
+WordCountPair::WordCountPair() : word(""), count(0)
 {
-    word = "";
-    count = 0;
+
 }
 
 // Takes a word and its count as parameters and initialize the word and
 // count member variables. Sets count to one if the second parameter is not
 // supplied.
-WordCountPair::WordCountPair(const std::string str, int c = 1)
+WordCountPair::WordCountPair(const std::string str, int c = 1) : word(str), count(c)
 {
-    word = str;
-    count = c;
+
 }
 
 WordCountPair::~WordCountPair()
@@ -40,7 +38,7 @@ void WordCountPair::setCount(int c)
 }
 
 // Set count variable with the input
-int WordCountPair::getCount(std::string str)
+int WordCountPair::getCount(const std::string str)
 {
     return str.length();
 }

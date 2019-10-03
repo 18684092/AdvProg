@@ -19,3 +19,25 @@
 	<string>
 	"DocSummary.h"
 
+1570031434 source:/home/andyp/c++/AdvProg/Week2a/main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	"DocSummary.h"
+
+1570028765 /home/andyp/c++/AdvProg/Week2a/include/DocSummary.h
+	<string>
+	<vector>
+	<iostream>
+	"WordCountPair.h"
+	<algorithm>
+
+1570087056 /home/andyp/c++/AdvProg/Week2a/include/WordCountPair.h
+	<string>
+
+1570087886 source:/home/andyp/c++/AdvProg/Week2a/src/DocSummary.cpp
+	"DocSummary.h"
+
+1570087064 source:/home/andyp/c++/AdvProg/Week2a/src/WordCountPair.cpp
+	"WordCountPair.h"
+

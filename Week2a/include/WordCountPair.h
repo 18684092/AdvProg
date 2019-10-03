@@ -13,7 +13,7 @@ class WordCountPair
         void setWord(const std::string);
         std::string getWord();
         void setCount(int);
-        int getCount(std::string);
+        int getCount(const std::string);
 
     protected:
 
