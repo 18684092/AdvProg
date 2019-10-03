@@ -34,11 +34,11 @@ std::string WordCountPair::getWord()
 // Sets count variable with the input
 void WordCountPair::setCount(int c)
 {
-   count = c;
+   count += c;
 }
 
 // Set count variable with the input
 int WordCountPair::getCount(const std::string str)
 {
-    return str.length();
+    return count;
 }
