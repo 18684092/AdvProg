@@ -2,7 +2,8 @@
 #include <fstream>
 #include <string>
 #include <cstring>
-
+#include <algorithm>
+#include <iostream>
 
 /*
 Takes document name as input and initializes class variables
@@ -46,38 +47,16 @@ void DocSummary::analyseDocument()
 {
     std::string str;
     std::ifstream myFile(fileName);
-
     if (myFile.is_open())
     {
-        while (myFile >> str)
-        {
-            WordCountPair newWord;
-            std::string word(str);
-            removePunc(word);
-            newWord.setWord(word);
-            newWord.setCount(1);
-            bool found = false;
-            for(size_t i = 0; i < wordList.size(); ++i)
-            {
-                if (wordList[i].getWord() == word)
-                {
-                    found = true;
-                    wordList[i].setCount(1);
-                    break;
-                }
-            }
-            if (!found) wordList.push_back(newWord);
-            addWord(word);
-            if (word != std::string(str))
-            {
-                increaseSentenceCount(str);
-            }
-        }
+        while (myFile >> str) addWord(str);
         myFile.close();
     }
     else
     {
-        std::cout << "no input file" << std::endl;
+        std::cout << "File: " << fileName << " missing." << std::endl;
+        // This gets caught in main() so that we can return properly
+        throw std::exception();
     }
 }
 
@@ -89,15 +68,13 @@ void DocSummary::analyseDocument()
 */
 void DocSummary::removePunc(std::string &word)
 {
-    char c;
-    // make i same type as word.length()
     for(size_t i = 0; i < word.length(); ++i)
     {
-        c = word[i];
+        char c = word[i];
         if (c == '.' || c == '?' || c == '!' || c == ',')
-            {
-                word.erase(i, 1);
-            }
+        {
+            word.erase(i, 1);
+        }
     }
 }
 
@@ -105,10 +82,24 @@ void DocSummary::removePunc(std::string &word)
 Adds a given word into the wordList vector if it does not exist in the
 vector. Otherwise it increases the corresponding count entry in vector.
 */
-void DocSummary::addWord(const std::string word)
+void DocSummary::addWord(const std::string str)
 {
+    std::string word = str;
+    removePunc(word);
+    WordCountPair newWP(word, 1);
+    bool found = false;
+    for(size_t i = 0; i < wordList.size(); ++i)
+    {
+        if (wordList[i].getWord() == word)
+        {
+            found = true;
+            wordList[i].setCount(1);
+            break;
+        }
+    }
+    if (!found) wordList.push_back(newWP);
+    if (word != str) increaseSentenceCount(str);
     ++numberOfWords;
-
 }
 
 /*
@@ -117,15 +108,13 @@ if the given word contains a “.”, ”!” or “?” symbol.
 */
 void DocSummary::increaseSentenceCount(const std::string word)
 {
-    char c;
-    // make i same type as word.length()
     for(size_t i = 0; i < word.length(); ++i)
     {
-        c = word[i];
+        char c = word[i];
         if (c == '.' || c == '?' || c == '!')
-            {
-                ++numberOfSentences;
-                break;
-            }
+        {
+            ++numberOfSentences;
+            break;
+        }
     }
 }

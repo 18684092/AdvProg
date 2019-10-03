@@ -3,9 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <iostream>
 #include "WordCountPair.h"
-#include <algorithm>
 
 class DocSummary
 {
