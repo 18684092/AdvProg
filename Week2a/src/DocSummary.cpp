@@ -1,7 +1,6 @@
 #include "DocSummary.h"
 #include <fstream>
 #include <string>
-#include <algorithm>
 #include <iostream>
 
 /*
@@ -29,11 +28,12 @@ void DocSummary::printSummary()
     std::cout << "No of sentences : " << numberOfSentences << std::endl;
     std::cout << "No of words     : " << numberOfWords << std::endl;
 
+    // Bjarne Stroustrup says use auto as compiler makes less mistakes
     for ( auto &wordPair : wordList )
     {
-        int s = wordPair.getWord().length();
+        int s = wordPair.getWord().length(); // beautify, just make the effort
         std::cout << wordPair.getWord() << (std::string (10 - s, ' '));
-        std::cout << wordPair.getCount("hh") << std::endl;
+        std::cout << wordPair.getCount("") << std::endl;
     }
 
     std::cout << std::endl;
@@ -59,7 +59,7 @@ void DocSummary::analyseDocument()
     {
         // This is here to get used to using exceptions. Without it the program
         // would operate (not crash) but main would return the wrong value!!!
-        std::cout << "File: " << fileName << " missing." << std::endl;
+        std::cout << "File: " << fileName << " is missing." << std::endl;
 
         // This gets caught in main() so that we can return properly
         throw std::exception();
@@ -78,7 +78,7 @@ void DocSummary::removePunc(std::string &word)
     for(size_t i = 0; i < word.length(); ++i)
     {
         char c = word[i];
-
+        // Could have used ispunct(word[i]) but we are only told about these 3 chars
         if (c == '.' || c == '?' || c == '!' || c == ',')
         {
             word.erase(i, 1);
@@ -103,7 +103,7 @@ void DocSummary::addWord(const std::string str)
     for(size_t i = 0; i < wordList.size(); ++i)
     {
 
-        // Have we seen this word before
+        // Have we seen this word before?
         if (wordList[i].getWord() == word)
         {
             found = true;
@@ -120,7 +120,7 @@ void DocSummary::addWord(const std::string str)
         wordList.push_back(newWP);
     }
 
-    // It is a sentence if there are punctuation chars contained
+    // Any Difference is punctuation
     if (word != str) increaseSentenceCount(str);
 
     // There must be a word otherwise we wouldn't be here!

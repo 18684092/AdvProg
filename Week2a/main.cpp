@@ -3,7 +3,7 @@
 int main()
 {
     // Note, if the file is missing we still need to
-    // exit / return in am orderly fashion!
+    // exit / return in an orderly fashion!
     try
     {
         DocSummary doc1("input.txt");
